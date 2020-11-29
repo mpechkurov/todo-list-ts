@@ -1,13 +1,17 @@
-class TodoApp {
-    private todoService : ITodoService;
-    private todoList : TodoListComponent;
+import { Todo, TodoState } from './Model';
+import TodoService, { ITodoService } from './TodoService';
+import TodoListComponent from './TodoListComponent';
 
-    constructor(el, todos){
+export class TodoApp {
+    private todoService: ITodoService;
+    private todoList: TodoListComponent;
+
+    constructor(el, todos) {
         this.todoService = new TodoService(todos);
         this.initialize(el);
     }
 
-    addTodo(todoName){
+    addTodo(todoName) {
         this.todoService.add(todoName);
         this.renderTodos();
     }
@@ -36,19 +40,19 @@ class TodoApp {
             todoListEl = el.getElementsByClassName('todo-list')[0],
             clearCompletedEl = el.getElementsByClassName('clear-completed')[0];
 
-        addTodoFormEl.addEventListener('submit', function(evnt) {
+        addTodoFormEl.addEventListener('submit', function (evnt) {
             _this.addTodo(addTodoNameEl.value)
             addTodoNameEl.value = '';
             evnt.preventDefault();
         });
 
-        todoListEl.addEventListener('todo-toggle', function(evnt) {
+        todoListEl.addEventListener('todo-toggle', function (evnt) {
             var todoId = evnt.detail.todoId;
             _this.todoService.toggle(todoId);
             _this.renderTodos();
         });
 
-        clearCompletedEl.addEventListener('click', function() {
+        clearCompletedEl.addEventListener('click', function () {
             _this.clearCompleted();
         });
 
