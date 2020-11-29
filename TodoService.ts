@@ -35,6 +35,7 @@ export default class TodoService implements ITodoService {
     // Accepts a todo name or todo object
     add(todo: Todo): Todo
     add(todo: string): Todo
+    @log
     add(input): Todo {
 
         var todo: Todo = {
@@ -105,4 +106,18 @@ export default class TodoService implements ITodoService {
         return null;
     }
 
+}
+
+function log(target: Object , methodName : string , descriptor: TypedPropertyDescriptor<Function>) {
+    let originalMethod = descriptor.value;
+
+    descriptor.value = function(...args){
+        console.log(`${methodName}(${JSON.stringify(args)})`);
+
+        let returnValue = originalMethod.apply(this, args);
+
+        console.log(`${methodName}(${JSON.stringify(args)}) => ${JSON.stringify(returnValue)}`);
+
+        return returnValue;
+    }
 }
