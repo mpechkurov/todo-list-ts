@@ -4,6 +4,7 @@ import { Todo, TodoState } from './Model';
 export class ValidatetableTodo implements Todo {
     id: number;
     @required
+    @regex(`^[a-zA-Z]*$`)
     name: string;
     state: TodoState;
 }
@@ -65,4 +66,30 @@ export function required(target: Object, propertyName: string) {
             property: propertyName
         }
     })
+}
+
+export function regex(pattern: string){
+
+    let expression = new RegExp(pattern);
+
+    return function ergex(target: Object, propertyName: string){
+
+        let validatable = <{_validators: Ivalidator[]}>target,
+            validators = (validatable._validators || (validatable._validators = []));
+
+        validators.push(function(instance){
+
+            let propertyValue = instance[propertyName],
+                isValid = expression.test(propertyValue);
+
+            return {
+                isValid,
+                message: `${propertyName} does not match ${expression}`,
+                property: propertyName
+            }
+            
+        })
+    
+    };
+
 }
