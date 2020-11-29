@@ -1,0 +1,23 @@
+{
+  "name": "todo-list",
+  "version": "1.0.0",
+  "description": "Todo list app",
+  "main": "TodoApp.js",
+  "dependencies": {
+    "@types/jquery": "^3.5.4"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mpechkurov/todo-list-ts.git"
+  },
+  "author": "Pechkurov",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mpechkurov/todo-list-ts/issues"
+  },
+  "homepage": "https://github.com/mpechkurov/todo-list-ts#readme"
+}
